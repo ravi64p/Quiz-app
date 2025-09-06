@@ -89,10 +89,10 @@ const Quiz = () => {
   };
 
   const reset = () => {
-    loadQuestion(0);
     setScore(0);
     setResult(false);
     setTotalTime(0);
+    loadQuestion(0);
   };
 
   return (
