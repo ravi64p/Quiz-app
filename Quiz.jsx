@@ -23,11 +23,9 @@ const Quiz = () => {
   const Option4 = useRef(null);
   const optionRefs = [Option1, Option2, Option3, Option4];
 
-
   useEffect(() => {
     if (result) return;
     if (timeLeft === 0) {
-      
       if (!lock) {
         optionRefs[question.ans - 1].current.classList.add("correct");
         setMessage("⏰ Time up!");
@@ -40,7 +38,7 @@ const Quiz = () => {
       setTotalTime((t) => t + 1);
     }, 1000);
     return () => clearTimeout(t);
-  }, [timeLeft, result, lock, question.ans]); 
+  }, [timeLeft, result, lock, question.ans]);
 
   const handleSubmit = () => {
     if (lock || selected === null) return;
@@ -102,7 +100,13 @@ const Quiz = () => {
       {!result ? (
         <>
           <div className="info">
-            <p>Time Left: <b>{timeLeft}s</b> | Total Time Used: <b>{totalTime}s</b></p>
+            <p>
+              Time Left:{" "}
+              <b className={timeLeft <= 30 ? "red-timer" : ""}>
+                {timeLeft}s
+              </b>{" "}
+              | Total Time Used: <b>{totalTime}s</b>
+            </p>
             <p>Progress: {index + 1}/{data.length} | Score: {score}</p>
           </div>
 
@@ -110,35 +114,79 @@ const Quiz = () => {
           <ul>
             <li
               ref={Option1}
-              onClick={() => { if (!lock) { setSelected(1); Option1.current.classList.add("selected"); Option2.current.classList.remove("selected"); Option3.current.classList.remove("selected"); Option4.current.classList.remove("selected"); }}}
+              onClick={() => {
+                if (!lock) {
+                  setSelected(1);
+                  Option1.current.classList.add("selected");
+                  Option2.current.classList.remove("selected");
+                  Option3.current.classList.remove("selected");
+                  Option4.current.classList.remove("selected");
+                }
+              }}
             >
               {question.option1}
             </li>
             <li
               ref={Option2}
-              onClick={() => { if (!lock) { setSelected(2); Option2.current.classList.add("selected"); Option1.current.classList.remove("selected"); Option3.current.classList.remove("selected"); Option4.current.classList.remove("selected"); }}}
+              onClick={() => {
+                if (!lock) {
+                  setSelected(2);
+                  Option2.current.classList.add("selected");
+                  Option1.current.classList.remove("selected");
+                  Option3.current.classList.remove("selected");
+                  Option4.current.classList.remove("selected");
+                }
+              }}
             >
               {question.option2}
             </li>
             <li
               ref={Option3}
-              onClick={() => { if (!lock) { setSelected(3); Option3.current.classList.add("selected"); Option1.current.classList.remove("selected"); Option2.current.classList.remove("selected"); Option4.current.classList.remove("selected"); }}}
+              onClick={() => {
+                if (!lock) {
+                  setSelected(3);
+                  Option3.current.classList.add("selected");
+                  Option1.current.classList.remove("selected");
+                  Option2.current.classList.remove("selected");
+                  Option4.current.classList.remove("selected");
+                }
+              }}
             >
               {question.option3}
             </li>
             <li
               ref={Option4}
-              onClick={() => { if (!lock) { setSelected(4); Option4.current.classList.add("selected"); Option1.current.classList.remove("selected"); Option2.current.classList.remove("selected"); Option3.current.classList.remove("selected"); }}}
+              onClick={() => {
+                if (!lock) {
+                  setSelected(4);
+                  Option4.current.classList.add("selected");
+                  Option1.current.classList.remove("selected");
+                  Option2.current.classList.remove("selected");
+                  Option3.current.classList.remove("selected");
+                }
+              }}
             >
               {question.option4}
             </li>
           </ul>
 
-          {/* Buttons row: Prev (left) – Submit (center) – Next (right) */}
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginTop: 12 }}>
-            <button onClick={prev} disabled={index === 0}>⟵ Prev</button>
-            <button onClick={handleSubmit} disabled={lock || selected === null}>Submit</button>
-            <button onClick={next} disabled={!lock}>{index === data.length - 1 ? "Finish ➜" : "Next ➜"}</button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 8,
+              marginTop: 12,
+            }}
+          >
+            <button onClick={prev} disabled={index === 0}>
+              ⟵ Prev
+            </button>
+            <button onClick={handleSubmit} disabled={lock || selected === null}>
+              Submit
+            </button>
+            <button onClick={next} disabled={!lock}>
+              {index === data.length - 1 ? "Finish ➜" : "Next ➜"}
+            </button>
           </div>
 
           <p
@@ -152,7 +200,9 @@ const Quiz = () => {
         </>
       ) : (
         <>
-          <h2>🎉 You Scored {score} out of {data.length}</h2>
+          <h2>
+            🎉 You Scored {score} out of {data.length}
+          </h2>
           <p>Total Time Taken: {totalTime} seconds</p>
           <button onClick={reset}>Reset</button>
         </>
@@ -161,4 +211,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Quiz;

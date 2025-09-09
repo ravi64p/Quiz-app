@@ -54,3 +54,7 @@
     background: #ffebeb;
     border-color: #FF4A4A;
 }
+.red-timer {
+  color: red;
+  font-weight: bold;
+}
